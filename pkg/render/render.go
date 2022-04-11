@@ -7,27 +7,41 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/Zhenkili/udemyproject/pkg/config"
 )
 
 var functions = template.FuncMap{}
+var app *config.Appconfig
+
+//set the congfig for templates
+func NewTemplates(a *config.Appconfig) {
+	app = a
+}
 
 //把tmpl写进w里作为应答
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
-	templatecache, err := CreateTemplateCache()
-	if err != nil {
-		log.Fatal(err)
+	var templatecache map[string]*template.Template
+
+	//
+	if app.UseCache {
+		fmt.Print("use caache")
+		templatecache = app.TemplateCache
+	} else {
+		fmt.Print("didnt use caache")
+		templatecache, _ = CreateTemplateCache()
 	}
 
 	template, ok := templatecache[tmpl]
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("Could not get template from template cache")
 	}
 
 	buf := new(bytes.Buffer)
 	//将template解析后写入到bug里
 	_ = template.Execute(buf, nil)
-	_, err = buf.WriteTo(w)
+	_, err := buf.WriteTo(w)
 	if err != nil {
 		fmt.Println("error in write out the template:", err)
 	}
