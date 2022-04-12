@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Zhenkili/udemyproject/pkg/config"
+	"github.com/Zhenkili/udemyproject/pkg/module"
 	"github.com/Zhenkili/udemyproject/pkg/render"
 )
 
@@ -13,17 +14,6 @@ var Repo *Repository
 //claim the repository type
 type Repository struct {
 	App *config.Appconfig
-}
-
-type TemplateData struct {
-	StringMap map[string]string
-	IntMap    map[string]int
-	FloatMap  map[string]float32
-	Data      map[string]interface{}
-	CSRFToken string
-	Flash     string
-	Warning   string
-	Error     string
 }
 
 //create a new repository here
@@ -40,7 +30,7 @@ func NewHandlers(r *Repository) {
 
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintf(w, "I am the homepage")
-	render.RenderTemplate(w, "home.page.html")
+	render.RenderTemplate(w, "home.page.html", &module.TemplateData{})
 }
 
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
@@ -51,5 +41,5 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	//doing some logic over here
 
 	//send the data to the template
-	render.RenderTemplate(w, "about.page.html")
+	render.RenderTemplate(w, "about.page.html", &module.TemplateData{})
 }
