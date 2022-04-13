@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/Zhenkili/udemyproject/pkg/config"
-	"github.com/Zhenkili/udemyproject/pkg/module"
+	"github.com/Zhenkili/udemyproject/pkg/models"
 )
 
 var functions = template.FuncMap{}
@@ -20,8 +20,13 @@ func NewTemplates(a *config.Appconfig) {
 	app = a
 }
 
+//default the templatedata
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
 //把tmpl写进w里作为应答
-func RenderTemplate(w http.ResponseWriter, tmpl string, templdata *module.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 
 	var templatecache map[string]*template.Template
 
@@ -40,8 +45,10 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, templdata *module.Templa
 	}
 
 	buf := new(bytes.Buffer)
-	//将template解析后写入到bug里
-	_ = template.Execute(buf, nil)
+
+	td = AddDefaultData(td)
+	//将template解析后写入到buf里,附带templatedata填进buf里去
+	_ = template.Execute(buf, td)
 	_, err := buf.WriteTo(w)
 	if err != nil {
 		fmt.Println("error in write out the template:", err)

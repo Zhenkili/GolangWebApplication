@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Zhenkili/udemyproject/pkg/config"
-	"github.com/Zhenkili/udemyproject/pkg/module"
+	"github.com/Zhenkili/udemyproject/pkg/models"
 	"github.com/Zhenkili/udemyproject/pkg/render"
 )
 
@@ -30,7 +30,7 @@ func NewHandlers(r *Repository) {
 
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintf(w, "I am the homepage")
-	render.RenderTemplate(w, "home.page.html", &module.TemplateData{})
+	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
 }
 
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
@@ -39,7 +39,11 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	// fmt.Fprintf(w, "I do the culculate, 1 + 4 = %d", res)
 
 	//doing some logic over here
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello, again"
 
 	//send the data to the template
-	render.RenderTemplate(w, "about.page.html", &module.TemplateData{})
+	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
 }
