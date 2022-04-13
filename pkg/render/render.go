@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/Zhenkili/udemyproject/pkg/config"
-	"github.com/Zhenkili/udemyproject/pkg/handler"
+	"github.com/Zhenkili/udemyproject/pkg/module"
 )
 
 var functions = template.FuncMap{}
@@ -21,7 +21,7 @@ func NewTemplates(a *config.Appconfig) {
 }
 
 //把tmpl写进w里作为应答
-func RenderTemplate(w http.ResponseWriter, tmpl string, templdata *handler.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, templdata *module.TemplateData) {
 
 	var templatecache map[string]*template.Template
 
