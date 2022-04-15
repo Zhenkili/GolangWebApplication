@@ -42,8 +42,12 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Hello, again"
 
+	intMap := make(map[string]int)
+	intMap["Birthday"] = 19961024
+
 	//send the data to the template
 	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
 		StringMap: stringMap,
+		IntMap:    intMap,
 	})
 }
