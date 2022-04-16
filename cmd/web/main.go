@@ -30,9 +30,16 @@ func main() {
 	handler.NewHandlers(HandlerRepo)
 	render.NewTemplates(&app)
 
-	http.HandleFunc("/", handler.Repo.Home)
-	http.HandleFunc("/about", handler.Repo.About)
+	// http.HandleFunc("/", handler.Repo.Home)
+	// http.HandleFunc("/about", handler.Repo.About)
 
 	fmt.Println(fmt.Sprintf("Staring application on port %s", portNumber))
-	_ = http.ListenAndServe(portNumber, nil)
+	// _ = http.ListenAndServe(portNumber, nil)
+
+	srv := &http.Server{
+		Addr: portNumber,
+	}
+
+	err = srv.ListenAndServe()
+	log.Fatal(err)
 }
