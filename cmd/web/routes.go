@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/Zhenkili/udemyproject/pkg/config"
@@ -10,5 +9,7 @@ import (
 func routes(app *config.Appconfig) http.Handler {
 	// mux := pat.New()
 	return http.HandlerFunc()
-	fmt.Println("here")
+	fmt.println("here")
+	fmt.println("here")
+	fmt.println("here")
 }
