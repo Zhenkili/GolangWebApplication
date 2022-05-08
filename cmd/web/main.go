@@ -33,7 +33,7 @@ func main() {
 	// http.HandleFunc("/", handler.Repo.Home)
 	// http.HandleFunc("/about", handler.Repo.About)
 
-	fmt.Println(fmt.Sprintf("Staring application on port %s", portNumber))
+	fmt.Printf("Staring application on port %s", portNumber)
 	// _ = http.ListenAndServe(portNumber, nil)
 
 	srv := &http.Server{

@@ -13,8 +13,11 @@ import (
 func routes(app *config.Appconfig) http.Handler {
 
 	mux := chi.NewRouter()
+	mux.Use(middleware.Recoverer)
+	mux.Use(Nosurf)
+
 	mux.Get("/", handler.Repo.Home)
 	mux.Get("/about", handler.Repo.About)
-	mux.Use(middleware.Recoverer)
+
 	return mux
 }
