@@ -35,6 +35,7 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	//store the ip in session
 	remoteIP := r.RemoteAddr
 	m.App.Session.Put(r.Context(), "remote_ip", remoteIP)
+
 	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
 }
 
